@@ -65,13 +65,13 @@
                 variantQuantity: 0
             }
         ],
-        cart: 0
+        cart: []
     }
 },
 methods: {
     addToCart() {
-        this.cart += 1
-    },
+        this.$emit('add-to-cart');
+     },     
     updateProduct(index) {
         this.selectedVariant = index;
         console.log(index);
@@ -102,7 +102,12 @@ computed: {
  let app = new Vue({
     el: '#app',
     data: {
-        premium: true
-    }
-   
+        premium: true,
+        cart: [],
+    },
+    methods: {
+        updateCart(id) {
+            this.cart.push(id);
+        }
+     }   
  })
