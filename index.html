@@ -13,7 +13,21 @@
     <div class="nav-bar"></div>
     <div id="app">
         <div class="cart">
-            <p>Cart({{ cart.length }})</p>
+            <p>Cart({{ cart }})</p>
+
+            <span>
+                <p v-for="cart in cart">
+                    <p v-if="cart.length === 0">Cart is empty</p>
+
+                    <p v-else>
+                        <p>Product:</p>
+
+                        <p>Color: </p>
+
+                        <p>Size: </p>
+                    </p>
+                </p>
+            </span>
         </div>     
         <product :premium="premium" @add-to-cart="updateCart" @subtraction-to-cart="subtractionCart"></product>
         <product-review></product-review>

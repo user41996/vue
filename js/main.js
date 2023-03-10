@@ -196,7 +196,26 @@ Vue.component('product', {
 <!--        <div class="cart">-->
 <!--        <p>Cart({{cart}})</p>//счётчик(малый)-->
 <!--        </div>-->
-        
+
+        <label>Sizes</label>
+        <p>S:</p>
+        <input type="radio" value="S" v-model="size""/>
+
+        <p>M:</p>
+        <input type="radio" value="M" v-model="size""/>
+
+        <p>L:</p>
+        <input type="radio" value="L" v-model="size""/>
+
+        <p>XL:</p>
+        <input type="radio" value="XL" v-model="size""/>
+
+        <p>XXL:</p>
+        <input type="radio" value="XXL" v-model="size""/>
+
+        <p>XXXL:</p>
+        <input type="radio" value="XXXL" v-model="size""/>
+
         <button v-on:click="addToCart" :disabled="!inStock" :class="{disabledButton:!inStock}">
         Add to cart
         </button><br>
@@ -205,9 +224,7 @@ Vue.component('product', {
         Subtraction to cart
         </button>
         
-        <ul>
-           <li v-for="size in sizes">{{size}}</li>
-        </ul>
+        
         <a :href="link">More products like this</a><br>
         <span v-show="onSale">On sale</span>
         <p v-if="onSale">{{sale}}</p>
@@ -243,10 +260,11 @@ Vue.component('product', {
                     variantId: 2235,
                     variantColor: 'blue',
                     variantImage: "./assets/vmSocks-blue-onWhite.jpg",
-                    variantQuantity: 0,
+                    variantQuantity: 110,
                 }
             ],
-            sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
+            // sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
+            size: null,
             cart: [],
             reviews:[],
         }
@@ -255,7 +273,11 @@ Vue.component('product', {
     methods: {
         addToCart() {
             this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId);
+            this.$emit('add-to-cart', this.size);
         },
+        // addSizeToCart() {
+        //     this.$emit('add-to-cart', this.size);
+        // },
         subtractionToCart(){
             this.$emit('subtraction-to-cart', this.variants[this.selectedVariant].variantId);
         },
@@ -279,6 +301,9 @@ Vue.component('product', {
         image(){
             return this.variants[this.selectedVariant].variantImage
         },
+        // size(){
+        //     return this.size 
+        // },
         sale() {
             return this.brand + ' ' + 'проводит распрадажу' + ' ' + this.product;
         },
@@ -307,7 +332,9 @@ let app = new Vue({
     },
     methods: {
         updateCart(id){
-            this.cart.push(id); //добавить такую же штуку, но чтобы они вычитала и удаляла из корзины
+            this.cart.push(id);
+            this.cart.push(size)
+            console.log(this.cart)
         },
         subtractionCart(){
             this.cart.pop();
