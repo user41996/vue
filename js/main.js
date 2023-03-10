@@ -201,7 +201,9 @@ Vue.component('product', {
         Add to cart
         </button><br>
         
-        <button v-on:click="subtractionToCart">Subtract to cart</button>
+        <button v-on:click="subtractionToCart" :disabled="!inStock" :class="{ disabledButton: !inStock }">
+        Subtraction to cart
+        </button>
         
         <ul>
            <li v-for="size in sizes">{{size}}</li>
@@ -254,8 +256,8 @@ Vue.component('product', {
         addToCart() {
             this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId);
         },
-        subtractionToCart() {
-            this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId);
+        subtractionToCart(){
+            this.$emit('subtraction-to-cart', this.variants[this.selectedVariant].variantId);
         },
         updateProduct(index) {
             this.selectedVariant = index;
