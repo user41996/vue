@@ -13,21 +13,16 @@
     <div class="nav-bar"></div>
     <div id="app">
         <div class="cart">
-            <p>Cart({{ cart }})</p>
-
-            <span>
-                <p v-for="cart in cart">
-                    <p v-if="cart.length === 0">Cart is empty</p>
-
-                    <p v-else>
-                        <p>Product:</p>
-
-                        <p>Color: </p>
-
-                        <p>Size: </p>
+            <p>Cart({{ carts.length }})</p>
+            <p v-if="carts.length === 0">Cart is empty</p>
+            <div v-else>
+                <p v-for="cart in carts">
+                    <p>Product name: Vue Mastery Socks</p>
+                    <p v-if="carts[0] === 2235">Color: blue</p>
+                    <p v-else-if="carts[0] === 2234">Color: green</p>
+                    <p>Size: {{carts[1]}}</p>
                     </p>
-                </p>
-            </span>
+            </div>
         </div>     
         <product :premium="premium" @add-to-cart="updateCart" @subtraction-to-cart="subtractionCart"></product>
         <product-review></product-review>

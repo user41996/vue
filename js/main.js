@@ -120,10 +120,10 @@ Vue.component('product-review', {
  <p>Would you recommend this product?</p>
 
     <label for="recommendation">Yes</label>
-    <input type="radio" value="Yes" v-model="recommendation""/>
+    <input type="radio" value="Recommendation" v-model="recommendation""/>
 
     <label for="recommendation">No</label>
-    <input type="radio" value="No" v-model="recommendation"/>
+    <input type="radio" value="No recommendation" v-model="recommendation"/>
  </p>
  <p>
    <input type="submit" value="Submit"> 
@@ -147,17 +147,20 @@ Vue.component('product-review', {
                 let productReview = {
                     name: this.name,
                     review: this.review,
-                    rating: this.rating
+                    rating: this.rating,
+                    recommendation: this.recommendation
                 }
                 eventBus.$emit('review-submitted', productReview);
                 this.name = null
                 this.review = null
                 this.rating = null
+                this.recommendation = null
             }
             else {
                 if(!this.name) this.errors.push("Name required.");
                 if(!this.review) this.errors.push("Review required.");
                 if(!this.rating) this.errors.push("Rating required.");
+                if(!this.recommendation) this.errors.push("Recommendation required");
             }
         }
     }
@@ -199,22 +202,22 @@ Vue.component('product', {
 
         <label>Sizes</label>
         <p>S:</p>
-        <input type="radio" value="S" v-model="size""/>
+        <input type="radio" value="S" v-model="size">
 
         <p>M:</p>
-        <input type="radio" value="M" v-model="size""/>
+        <input type="radio" value="M" v-model="size">
 
         <p>L:</p>
-        <input type="radio" value="L" v-model="size""/>
+        <input type="radio" value="L" v-model="size">
 
         <p>XL:</p>
-        <input type="radio" value="XL" v-model="size""/>
+        <input type="radio" value="XL" v-model="size">
 
         <p>XXL:</p>
-        <input type="radio" value="XXL" v-model="size""/>
+        <input type="radio" value="XXL" v-model="size">
 
         <p>XXXL:</p>
-        <input type="radio" value="XXXL" v-model="size""/>
+        <input type="radio" value="XXXL" v-model="size">
 
         <button v-on:click="addToCart" :disabled="!inStock" :class="{disabledButton:!inStock}">
         Add to cart
@@ -228,7 +231,7 @@ Vue.component('product', {
         <a :href="link">More products like this</a><br>
         <span v-show="onSale">On sale</span>
         <p v-if="onSale">{{sale}}</p>
-        <p v-else-if="!onSale">{{brand}} НЕ проводит распрадажу {{product}}</p></div>
+        <p v-else-if="!onSale">{{brand}} НЕ проводит распродажу {{product}}</p></div>
         <div>
         <product-tabs :reviews="reviews"></product-tabs>
         </div>
@@ -265,7 +268,7 @@ Vue.component('product', {
             ],
             // sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
             size: null,
-            cart: [],
+            carts: [],
             reviews:[],
         }
     },
@@ -328,13 +331,13 @@ let app = new Vue({
     el: '#app',
     data: {
         premium: false,
-        cart:[],
+        carts:[]
     },
     methods: {
         updateCart(id){
-            this.cart.push(id);
-            this.cart.push(size)
-            console.log(this.cart)
+            this.carts.push(id);
+            this.carts.push(size);
+            console.log(this.carts)
         },
         subtractionCart(){
             this.cart.pop();
